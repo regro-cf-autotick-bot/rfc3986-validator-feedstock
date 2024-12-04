@@ -6,28 +6,29 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/rfc3986_validator/rfc3986_validator-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/rfc3986_validator/rfc3986_validator-{{ version }}.tar.gz
   sha256: 3d44bde7921b3b9ec3ae4e3adca370438eccebc676456449b145d533b240d055
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - setuptools
     - pip
     - pytest-runner
   run:
-    - python
+    - python >={{ python_min }}
 
 test:
   imports:
     - rfc3986_validator
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
